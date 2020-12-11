@@ -18,6 +18,8 @@ AWS.config.update({
   endpoint: "dynamodb.us-east-1.amazonaws.com",
 });
 const docClient = new AWS.DynamoDB.DocumentClient();
+
+// Set table to your table name.
 const table = "estacion_monitoreo";
 
 let fetchDistinctSensorId = () => {
