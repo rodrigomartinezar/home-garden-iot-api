@@ -13,7 +13,7 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "node main.js"
+    "dev": "nodemon --exec main.js"
   },
   "author": "NAME",
   "license": "ISC"

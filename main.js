@@ -1,8 +1,7 @@
 const AWS = require("aws-sdk");
-//const express = require("express");
-//const { type } = require("os");
-//const app = express();
-//const port = 4000;
+const express = require("express");
+const app = express();
+const port = 4000;
 
 // Checks if credentials are configured
 /* AWS.config.getCredentials(function (err) {
@@ -20,44 +19,49 @@ AWS.config.update({
 
 const docClient = new AWS.DynamoDB.DocumentClient();
 
-const table = "estacion_monitoreo";
+let fetchSensorData = (sensor_id) => {
+  const table = "estacion_monitoreo";
 
-const sensor_id = "1603975144740";
-
-const params = {
-  TableName: table,
-  KeyConditionExpression: "#sid = :ss",
-  ExpressionAttributeNames: {
-    "#sid": "sensor_id",
-  },
-  ExpressionAttributeValues: {
-    ":ss": sensor_id,
-  },
+  const params = {
+    TableName: table,
+    KeyConditionExpression: "#sid = :ss",
+    ExpressionAttributeNames: {
+      "#sid": "sensor_id",
+    },
+    ExpressionAttributeValues: {
+      ":ss": sensor_id,
+    },
+  };
+  return new Promise((resolve, reject) => {
+    let fetchedDataContent;
+    docClient.query(params, function (err, data) {
+      if (err) {
+        console.error(
+          "Unable to read item. Error JSON:",
+          JSON.stringify(err, null, 2)
+        );
+        reject(err);
+      } else {
+        //console.log(JSON.stringify(data, null, 2));
+        fetchedDataContent = data["Items"];
+        //console.log("Inside", fetchedData);
+        resolve(fetchedDataContent);
+      }
+    });
+  });
 };
 
-let fetchedData;
-
-docClient.query(params, function (err, data) {
-  if (err) {
-    console.error(
-      "Unable to read item. Error JSON:",
-      JSON.stringify(err, null, 2)
-    );
-  } else {
-    //console.log(JSON.stringify(data, null, 2));
-    fetchedData = data["Items"];
-    console.log(fetchedData);
-  }
-});
-
-/* app.get("/", (req, res) => {
+app.get("/", (req, res) => {
   res.send("Hello World!");
 });
 
-app.get("/Ovalle", (req, res) => {
-  res.send("xd");
+app.get("/city-data", (req, res) => {
+  const sensor_id = req.header("Sensor-Id");
+  const sensorData = fetchSensorData(sensor_id)
+    .then((fetchedDataContent) => res.send(fetchedDataContent))
+    .catch((err) => console.log(err));
 });
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);
-}); */
+});
