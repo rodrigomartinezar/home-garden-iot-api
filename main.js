@@ -42,9 +42,7 @@ let fetchSensorData = (sensor_id) => {
         );
         reject(err);
       } else {
-        //console.log(JSON.stringify(data, null, 2));
         fetchedDataContent = data["Items"];
-        //console.log("Inside", fetchedData);
         resolve(fetchedDataContent);
       }
     });
