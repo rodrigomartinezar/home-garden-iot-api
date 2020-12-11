@@ -1,4 +1,4 @@
-## API to query DynamoDB from AWS
+## API to query DynamoDB from AWS - UAI IoT Project
 
 This project is an API to fetch data from a DynamoDB from AWS. To run the project, installation of nodeJS and npm is needed. Once installed, run the command
 npm install
