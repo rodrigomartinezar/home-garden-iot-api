@@ -97,7 +97,6 @@ app.get("/sensors-ids", (req, res) => {
 
 app.get("/city-data", (req, res) => {
   const { sensor_id } = req.query;
-  console.log("RECEIVED: ", sensor_id);
   const sensorData = fetchSensorData(sensor_id)
     .then((fetchedDataContent) => res.send(fetchedDataContent))
     .catch((err) => res.send(err));
