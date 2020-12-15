@@ -1,4 +1,4 @@
-## API to query DynamoDB from AWS - UAI IoT Project
+## API to fetch data from AWS - DynamoDB - UAI IoT Project
 
 This project is an API to fetch data from a DynamoDB from AWS. To run the project, installation of nodeJS and npm is needed. Once installed, run the command
 npm install
@@ -9,4 +9,12 @@ Note that no spaces are needed. If you type a space is going to give an error. S
 Finally, check that the table name is configured and execute  
 node main.js  
 to run the api. It will run on localhost:4000.  
-There are two get methods. 'sensors-ids' and 'city-data'. The first fetch every unique sensor id. The second fetch data from a specific sensor. To specify the sensor, you have to give an id on the header of the request. You can check the first method in your browser visiting 'localhost:4000/sensors-ids'. The second method will not be available for it's not possible to pass a header from browser. For this, it may be better to use a tool like Postman.
+There are two get methods.
+
+### 'sensors-ids'
+
+Fetches every unique sensor id
+
+### 'city-data'.
+
+Fetches data from a specific sensor. To specify the sensor, you have to give an id as a Query param
